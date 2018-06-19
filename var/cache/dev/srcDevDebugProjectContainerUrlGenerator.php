@@ -20,6 +20,10 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         $this->defaultLocale = $defaultLocale;
         if (null === self::$declaredRoutes) {
             self::$declaredRoutes = array(
+        'app_hello_world' => array(array(), array('_controller' => 'App\\Controller\\HelloController::world'), array(), array(array('text', '/hello_world')), array(), array()),
+        'app_hello_mensagem' => array(array(), array('_controller' => 'App\\Controller\\HelloController::mensagem'), array(), array(array('text', '/mostrar-mensagem')), array(), array()),
+        'app_hello_produto' => array(array(), array('_controller' => 'App\\Controller\\HelloController::produto'), array(), array(array('text', '/cadastrar-produto')), array(), array()),
+        '_twig_error_test' => array(array('code', '_format'), array('_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'), array('code' => '\\d+'), array(array('variable', '.', '[^/]++', '_format'), array('variable', '/', '\\d+', 'code'), array('text', '/_error')), array(), array()),
         'hello_world' => array(array(), array('_controller' => 'App\\Controller\\HelloController::world'), array(), array(array('text', '/hello-world')), array(), array()),
     );
         }
