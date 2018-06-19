@@ -65,6 +65,9 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             default:
                 $routes = array(
                     '/hello_world' => array(array('_route' => 'app_hello_world', '_controller' => 'App\\Controller\\HelloController::world'), null, null, null),
+                    '/mostrar-mensagem' => array(array('_route' => 'app_hello_mensagem', '_controller' => 'App\\Controller\\HelloController::mensagem'), null, null, null),
+                    '/cadastrar-produto' => array(array('_route' => 'app_hello_produto', '_controller' => 'App\\Controller\\HelloController::produto'), null, null, null),
+                    '/hello-world' => array(array('_route' => 'hello_world', '_controller' => 'App\\Controller\\HelloController::world'), null, null, null),
                 );
 
                 if (!isset($routes[$pathinfo])) {
@@ -87,6 +90,51 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 return $ret;
         }
 
+        $matchedPathinfo = $pathinfo;
+        $regexList = array(
+            0 => '{^(?'
+                    .'|/_error/(\\d+)(?:\\.([^/]++))?(*:35)'
+                .')$}sD',
+        );
+
+        foreach ($regexList as $offset => $regex) {
+            while (preg_match($regex, $matchedPathinfo, $matches)) {
+                switch ($m = (int) $matches['MARK']) {
+                    default:
+                        $routes = array(
+                            35 => array(array('_route' => '_twig_error_test', '_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'), array('code', '_format'), null, null),
+                        );
+
+                        list($ret, $vars, $requiredMethods, $requiredSchemes) = $routes[$m];
+
+                        foreach ($vars as $i => $v) {
+                            if (isset($matches[1 + $i])) {
+                                $ret[$v] = $matches[1 + $i];
+                            }
+                        }
+
+                        $hasRequiredScheme = !$requiredSchemes || isset($requiredSchemes[$context->getScheme()]);
+                        if ($requiredMethods && !isset($requiredMethods[$canonicalMethod]) && !isset($requiredMethods[$requestMethod])) {
+                            if ($hasRequiredScheme) {
+                                $allow += $requiredMethods;
+                            }
+                            break;
+                        }
+                        if (!$hasRequiredScheme) {
+                            $allowSchemes += $requiredSchemes;
+                            break;
+                        }
+
+                        return $ret;
+                }
+
+                if (35 === $m) {
+                    break;
+                }
+                $regex = substr_replace($regex, 'F', $m - $offset, 1 + strlen($m));
+                $offset += strlen($m);
+            }
+        }
         if ('/' === $pathinfo && !$allow) {
             throw new Symfony\Component\Routing\Exception\NoConfigurationException();
         }
