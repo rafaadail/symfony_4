@@ -31,6 +31,59 @@ class Produto
     private $preco;
 
     /**
+     * @return string
+     */
+    public function getDescricao(): string
+    {
+        return $this->descricao;
+    }
+
+    /**
+     * @param string $descricao
+     * @return Produto
+     */
+    public function setDescricao(string $descricao): Produto
+    {
+        $this->descricao = $descricao;
+        return $this;
+    }
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", length=2)
+     */
+    private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=40)
+     *
+     */
+    private $descricao;
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     * @return Produto
+     */
+    public function setStatus(int $status): Produto
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+
+    /**
      * @return mixed
      */
     public function getId()
