@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProdutoRepository")
@@ -20,6 +21,7 @@ class Produto
      * @var string
      *
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $nome;
 
@@ -27,13 +29,14 @@ class Produto
      * @var float
      *
      * @ORM\Column(type="decimal", scale=2)
+     * @Assert\NotBlank()
      */
     private $preco;
 
     /**
      * @return string
      */
-    public function getDescricao(): string
+    public function getDescricao()
     {
         return $this->descricao;
     }
@@ -67,7 +70,7 @@ class Produto
     /**
      * @return int
      */
-    public function getStatus(): int
+    public function getStatus()
     {
         return $this->status;
     }
@@ -104,7 +107,7 @@ class Produto
     /**
      * @return string
      */
-    public function getNome(): string
+    public function getNome()
     {
         return $this->nome;
     }
@@ -122,7 +125,7 @@ class Produto
     /**
      * @return float
      */
-    public function getPreco(): float
+    public function getPreco()
     {
         return $this->preco;
     }
