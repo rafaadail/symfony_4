@@ -21,7 +21,7 @@ class Produto
      * @var string
      *
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Campo nome não pode ser vazio!")
      */
     private $nome;
 
@@ -29,61 +29,18 @@ class Produto
      * @var float
      *
      * @ORM\Column(type="decimal", scale=2)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Campo preço não pode ser vazio!")
      */
     private $preco;
 
     /**
-     * @return string
-     */
-    public function getDescricao()
-    {
-        return $this->descricao;
-    }
-
-    /**
-     * @param string $descricao
-     * @return Produto
-     */
-    public function setDescricao(string $descricao): Produto
-    {
-        $this->descricao = $descricao;
-        return $this;
-    }
-
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer", length=2)
-     */
-    private $status;
-
-    /**
      * @var string
      *
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Campo descrição não pode ser vazio!")
      *
      */
     private $descricao;
-
-    /**
-     * @return int
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param int $status
-     * @return Produto
-     */
-    public function setStatus(int $status): Produto
-    {
-        $this->status = $status;
-        return $this;
-    }
 
 
     /**
@@ -116,7 +73,7 @@ class Produto
      * @param string $nome
      * @return Produto
      */
-    public function setNome(string $nome): Produto
+    public function setNome(string $nome)
     {
         $this->nome = $nome;
         return $this;
@@ -134,11 +91,28 @@ class Produto
      * @param float $preco
      * @return Produto
      */
-    public function setPreco(float $preco): Produto
+    public function setPreco(float $preco)
     {
         $this->preco = $preco;
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getDescricao()
+    {
+        return $this->descricao;
+    }
+
+    /**
+     * @param string $descricao
+     * @return Produto
+     */
+    public function setDescricao(string $descricao)
+    {
+        $this->descricao = $descricao;
+        return $this;
+    }
 
 }
