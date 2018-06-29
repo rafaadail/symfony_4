@@ -5,12 +5,13 @@ namespace App\Controller;
 use App\Entity\Produto;
 use App\Form\ProdutoType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ProdutoController extends Controller
 {
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/produto", name="listar_produto")
      */
     public function index()
     {
